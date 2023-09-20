@@ -1,17 +1,19 @@
 import React, {useState} from 'react';
 import Input from "../../UI/Input/Input";
+import {IAuthFrom} from "../../../models";
 import Button from "../../UI/Button/Button";
-import {IAuthFrom, IStore} from "../../../models";
+
 
 const DEFAULT_FORM_DATA: IAuthFrom = {
     login: "",
     password: "",
 }
 
+const hello = "hello"
+const sum = 2 + 2
 
 
-
-const AuthLoginForm = () => {
+const   AuthLoginForm = () => {
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log(formData)
