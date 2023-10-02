@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import {IAuthFrom} from "../../../models";
@@ -9,6 +9,10 @@ const DEFAULT_FORM_DATA: IAuthFrom = {
 }
 
 const AuthLoginForm = () => {
+    const onButtonClick = () => {
+        console.log(targetElementRef.current?.focus())
+    }
+    const targetElementRef = useRef<HTMLInputElement | null>(null);
     const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         console.log(formData)
@@ -23,6 +27,7 @@ const AuthLoginForm = () => {
     return (
         <div>
             <form onSubmit={onSubmit} >
+                <input ref={targetElementRef} type={"text"}/>
                 <Input
                     type={"text"}
                     placeholder={"Login"}
@@ -36,6 +41,7 @@ const AuthLoginForm = () => {
                     updateValue={(val) => updateValue("password", val)}
                 />
                 <Button buttonClass={"button__primary"} type={"submit"}/>
+                <button onClick={onButtonClick}>Click</button>
             </form>
         </div>
     );
