@@ -2,6 +2,7 @@ import React, {useRef, useState} from 'react';
 import Input from "../../UI/Input/Input";
 import Button from "../../UI/Button/Button";
 import {IAuthFrom} from "../../../models";
+import { useForm } from "react-hook-form"
 
 const DEFAULT_FORM_DATA: IAuthFrom = {
     login: "",
@@ -9,13 +10,10 @@ const DEFAULT_FORM_DATA: IAuthFrom = {
 }
 
 const AuthLoginForm = () => {
-    const onButtonClick = () => {
-        console.log(targetElementRef.current?.focus())
-    }
-    const targetElementRef = useRef<HTMLInputElement | null>(null);
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        console.log(formData)
+    const {register, control, handleSubmit, formState: {errors}, reset} = useForm<IAuthFrom>({defaultValues: DEFAULT_FORM_DATA});
+    const onSubmit: any = (event: React.FormEvent<HTMLFormElement>) => {
+        // event.preventDefault();
+        console.log(event)
     }
     const [formData, setFormData] = useState<IAuthFrom>(DEFAULT_FORM_DATA)
     const updateValue = (nameValue: keyof IAuthFrom, value: string) => {
@@ -26,22 +24,23 @@ const AuthLoginForm = () => {
     }
     return (
         <div>
-            <form onSubmit={onSubmit} >
-                <input ref={targetElementRef} type={"text"}/>
+            <form onSubmit={handleSubmit(onSubmit)} >
+
                 <Input
+                    {...register("login")}
                     type={"text"}
                     placeholder={"Login"}
-                    value={formData.login}
-                    updateValue={(val) => updateValue("login", val)}
+                    //value={formData.login}
+                    // updateValue={(val) => updateValue("login", val)}
                 />
                 <Input
+                    {...register("password")}
                     type={"text"}
                     placeholder={"Password"}
-                    value={formData.password}
-                    updateValue={(val) => updateValue("password", val)}
+                    // value={formData.password}
+                    // updateValue={(val) => updateValue("password", val)}
                 />
                 <Button buttonClass={"button__primary"} type={"submit"}/>
-                <button onClick={onButtonClick}>Click</button>
             </form>
         </div>
     );
