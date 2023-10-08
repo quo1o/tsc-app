@@ -27,16 +27,18 @@ const AuthLoginForm = () => {
             <form onSubmit={handleSubmit(onSubmit)} >
 
                 <Input
-                    {...register("login")}
+                    {...register("login", {required: {value: true, message: "Blin"}})}
                     type={"text"}
                     placeholder={"Login"}
+                    errors={errors.login}
                     //value={formData.login}
                     // updateValue={(val) => updateValue("login", val)}
                 />
                 <Input
-                    {...register("password")}
+                    {...register("password", {required: {value: true, message: "Blin"}})}
                     type={"text"}
                     placeholder={"Password"}
+                    errors={errors.password}
                     // value={formData.password}
                     // updateValue={(val) => updateValue("password", val)}
                 />
